@@ -14,7 +14,7 @@ export function remove(id) {
   const values = { pkId: id };
   return request('/api/algorithm/module/remove', {
     method: 'POST',
-    body: JSON.stringify(values),
+    data: values,
   });
 }
 
@@ -22,13 +22,13 @@ export function patch(id, values) {
   const params = { pkId: id };
   return request('api/algorithm/module/edit', {
     method: 'POST',
-    body: JSON.stringify(values),
+    data: values,
   });
 }
 
 export function create(values) {
   return request('api/algorithm/module/save', {
     method: 'POST',
-    body: JSON.stringify(values),
+    data: values,
   });
 }

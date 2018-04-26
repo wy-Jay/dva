@@ -8,7 +8,8 @@ message.config({
   top: 50,
 });
 
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
+axios.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8';
 // axios.defaults.headers.common['Authorization'] = sessionStorage.getItem('Authorization')
 
 const fetch = (url, options) => {
@@ -21,7 +22,7 @@ const fetch = (url, options) => {
     case 'head':
       return axios.head(url, data);
     case 'post':
-      return axios.post(url, stringify(data));
+      return axios.post(url, JSON.stringify(data));
     case 'put':
       return axios.put(url, stringify(data));
     case 'patch':
@@ -43,13 +44,12 @@ function checkStatus(res) {
 
 function handelData(res) {
   const data = res.data;
+  debugger;
   if (data && data.msg && !data.success) {
+    debugger;
     message.error(data.msg);
   }
-  // else if(data && data.msg && data.success) {
-  //   message.success(data.msg)
-  // }
-  return { ...data.data, success: data.success || data.message === 'Success' };
+  return { ...data.data, success: data.success || data.msg === 'Success' };
 }
 
 function handleError(error) {
@@ -65,14 +65,14 @@ function handleError(error) {
 }
 
 export default function request(url, options) {
-  if (url !== '/user/login' && url !== '/user/register' && url !== '/user/logOut') {
+  if (url !== '/api/user/login' && url !== '/api/user/register' && url !== '/api/user/logOut') {
     url = `${url}?token=${Cookie.get('token')}`;
   }
 
   return fetch(url, options)
     .then(checkStatus)
-    .then(handelData)
-    .catch(handleError);
+    // .then(handelData)
+    // .catch(handleError);
 }
 
 export function get(url, options) {

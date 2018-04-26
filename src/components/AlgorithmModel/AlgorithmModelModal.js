@@ -9,10 +9,18 @@ class AlgorithmModelEditModal extends Component {
     super(props);
     this.state = {
       visible: false,
+      params: [],
     };
   }
 
   showModelHandler = (e) => {
+    // const params = [
+    //   {id: 0, name: "1", value: "2"}
+    //   ];
+    // console.log(params);
+    // this.setState(params);
+    // this._child.initParams(params);
+
     if (e) e.stopPropagation();
     this.setState({
       visible: true,
@@ -27,9 +35,12 @@ class AlgorithmModelEditModal extends Component {
 
   okHandler = () => {
     const { onOk } = this.props;
-    debugger;
+    // debugger;
+    const params = [...this.state.params];
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        values.attributes = JSON.stringify(params);
+        console.log(values);
         onOk(values);
         this.hideModelHandler();
       }
@@ -37,6 +48,7 @@ class AlgorithmModelEditModal extends Component {
   };
 
   changeRecord = (params) => {
+    this.setState(params);
     console.log(params,'---parents')
   }
 
@@ -44,7 +56,7 @@ class AlgorithmModelEditModal extends Component {
   render() {
     const { children } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { moduleName, classPath, attributes, pkId } = this.props.record;
+    const { moduleName, classPath, pkId, atttibutes } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -93,7 +105,7 @@ class AlgorithmModelEditModal extends Component {
               }
             </FormItem>
           </Form>
-          <ParamListWidget handleChangeRecord={(params) => this.changeRecord(params)}/>
+          <ParamListWidget  handleChangeRecord={(params) => this.changeRecord(params)}/>
         </Modal>
       </span>
     );

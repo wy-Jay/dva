@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Form, Input, Icon, Button, Upload, Select } from 'antd';
+import ParamListWidget from '../Common/ParamList';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -9,6 +10,7 @@ class AlgorithmInstanceEditModal extends Component {
     super(props);
     this.state = {
       visible: false,
+      params: [],
     };
   }
 
@@ -27,13 +29,22 @@ class AlgorithmInstanceEditModal extends Component {
 
   okHandler = () => {
     const { onOk } = this.props;
+    // debugger;
+    const params = [...this.state.params];
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        values.attributes = JSON.stringify(params);
+        console.log(values);
         onOk(values);
         this.hideModelHandler();
       }
     });
   };
+
+  changeRecord = (params) => {
+    this.setState(params);
+    console.log(params,'---parents')
+  }
 
 
   render() {
@@ -74,7 +85,7 @@ class AlgorithmInstanceEditModal extends Component {
                 getFieldDecorator('moduleName', {
                   rules: [{ required: true, message: '请输入模块名!' }],
                   initialValue: moduleName,
-                })(<Input disabled="true" />)
+                })(<Input  />)
               }
             </FormItem>
             <FormItem
@@ -115,7 +126,7 @@ class AlgorithmInstanceEditModal extends Component {
               {
                 getFieldDecorator('saveType', {
                   initialValue: saveType,
-                })(<Select defaultValue="1">
+                })(<Select>
                   <Option value="1">OSS</Option>
                 </Select>)
               }
@@ -145,14 +156,7 @@ class AlgorithmInstanceEditModal extends Component {
                 })(<Input disabled="true" />)
               }
             </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="参数"
-            >
-              <Button type="dashed" onClick={this.add}>
-                <Icon type="plus" /> 添加
-              </Button>
-            </FormItem>
+            <ParamListWidget  handleChangeRecord={(params) => this.changeRecord(params)}/>
           </Form>
         </Modal>
       </span>

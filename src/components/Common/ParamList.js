@@ -50,6 +50,10 @@ export default class ParamListWidget extends React.Component {
     this.props.handleChangeRecord(params)
   }
 
+  initParams = (params) => {
+    this.setState(params);
+  }
+
   addParam = () => {
     const params = [...this.state.params];
     params.push({ id: this.counter, name: '', value: '' });
@@ -64,7 +68,7 @@ export default class ParamListWidget extends React.Component {
     params.splice(index, 1);
     this.setState({ params });
     this.handleChangeParams({ params });
-    
+
   }
 
   updateParamName = (id, name) => {
@@ -72,7 +76,7 @@ export default class ParamListWidget extends React.Component {
 			(p.id === id ? Object.assign({}, p, { name }) : p));
     this.setState({ params });
     this.handleChangeParams({ params });
-    
+
   }
 
   updateParamValue = (id, value) => {
@@ -80,7 +84,7 @@ export default class ParamListWidget extends React.Component {
 			(p.id === id ? Object.assign({}, p, { value }) : p));
     this.setState({ params });
     this.handleChangeParams({ params });
-    
+
   }
 
   render() {

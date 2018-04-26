@@ -14,7 +14,7 @@ export default {
       const params = { username: payload.username, password: payload.password };
       const data = yield call(login, params);
       const returnData = data.data;
-      console.log(returnData);
+      debugger
       if (returnData && returnData.success) {
         setLoginIn(payload.username, returnData.data.token);
         const nextPathname = '/algorithmModels';
