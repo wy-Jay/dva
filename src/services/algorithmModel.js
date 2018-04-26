@@ -2,7 +2,12 @@ import request from '../utils/request';
 import { PAGE_SIZE } from '../constants';
 
 export function fetch({ page }) {
-  return request(`/api/algorithm/module/list?pageIndex=${page}&pageSize=${PAGE_SIZE}`);
+  const params = { page, PAGE_SIZE };
+  // return request(`/api/algorithm/module/list?pageIndex=${page}&pageSize=${PAGE_SIZE}`);
+  return request('/api/algorithm/module/list', {
+    method: 'get',
+    data: params,
+  });
 }
 
 export function remove(id) {

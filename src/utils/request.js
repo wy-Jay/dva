@@ -1,37 +1,92 @@
-import fetch from 'dva/fetch';
+import axios from 'axios';
+import { message } from 'antd';
+import { stringify } from 'qs';
+import Cookie from './cookie';
 
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
+// message 全局配置
+message.config({
+  top: 50,
+});
+
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+// axios.defaults.headers.common['Authorization'] = sessionStorage.getItem('Authorization')
+
+const fetch = (url, options) => {
+  const { method = 'get', data } = options;
+  switch (method.toLowerCase()) {
+    case 'get':
+      return axios.get(url, { params: data });
+    case 'delete':
+      return axios.delete(url, { data });
+    case 'head':
+      return axios.head(url, data);
+    case 'post':
+      return axios.post(url, stringify(data));
+    case 'put':
+      return axios.put(url, stringify(data));
+    case 'patch':
+      return axios.patch(url, data);
+    default:
+      return axios(options);
+  }
+};
+
+function checkStatus(res) {
+  if (res.status >= 200 && res.status < 300) {
+    return res;
   }
 
-  const error = new Error(response.statusText);
-  error.response = response;
+  const error = new Error(res.statusText);
+  error.response = res;
   throw error;
 }
 
-/**
- * Requests a URL, returning a promise.
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- * @return {object}           An object containing either "data" or "err"
- */
-export default async function request(url, options) {
-  const response = await fetch(url, options);
+function handelData(res) {
+  const data = res.data;
+  if (data && data.msg && !data.success) {
+    message.error(data.msg);
+  }
+  // else if(data && data.msg && data.success) {
+  //   message.success(data.msg)
+  // }
+  return { ...data.data, success: data.success || data.message === 'Success' };
+}
 
-  checkStatus(response);
+function handleError(error) {
+  const data = error.response.data;
+  if (data.errors) {
+    message.error(`${data.message}：${data.errors}`, 5);
+  } else if (data.error) {
+    message.error(`${data.error}：${data.error_description}`, 5);
+  } else {
+    message.error('未知错误！', 5);
+  }
+  return { success: false };
+}
 
-  const data = await response.json();
-
-  const ret = {
-    data,
-    headers: {},
-  };
-
-  if (response.headers.get('x-total-count')) {
-    ret.headers['x-total-count'] = response.headers.get('x-total-count');
+export default function request(url, options) {
+  if (url !== '/user/login' && url !== '/user/register' && url !== '/user/logOut') {
+    url = `${url}?token=${Cookie.get('token')}`;
   }
 
-  return ret;
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(handelData)
+    .catch(handleError);
+}
+
+export function get(url, options) {
+  return request(url, { ...options, method: 'get' });
+}
+
+export function post(url, options) {
+  return request(url, { ...options, method: 'post' });
+}
+
+export function put(url, options) {
+  return request(url, { ...options, method: 'put' });
+}
+
+export function deleted(url, options) {
+  return request(url, { ...options, method: 'deleted' });
 }
