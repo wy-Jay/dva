@@ -36,6 +36,10 @@ class AlgorithmModelEditModal extends Component {
     });
   };
 
+  changeRecord = (params) => {
+    console.log(params,'---parents')
+  }
+
 
   render() {
     const { children } = this.props;
@@ -89,7 +93,7 @@ class AlgorithmModelEditModal extends Component {
               }
             </FormItem>
           </Form>
-          <ParamListWidget />
+          <ParamListWidget handleChangeRecord={(params) => this.changeRecord(params)}/>
         </Modal>
       </span>
     );

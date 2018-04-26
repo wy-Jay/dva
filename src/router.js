@@ -12,15 +12,14 @@ function registerModel(app, model) {
 
 
 function redirectToLogin(nextState, replace) {
-  debugger;
-  if (!isLogin()) {
-    replace({
-      pathname: '/login',
-      state: {
-        nextPathname: nextState.location.pathname,
-      },
-    });
-  }
+  // if (!isLogin()) {
+  //   replace({
+  //     pathname: '/login',
+  //     state: {
+  //       nextPathname: nextState.location.pathname,
+  //     },
+  //   });
+  // }
 }
 
 function redirectToModulePage(nextState, replace) {
