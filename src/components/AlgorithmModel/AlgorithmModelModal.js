@@ -14,16 +14,16 @@ class AlgorithmModelEditModal extends Component {
   }
 
   showModelHandler = (e) => {
-    // const params = [
-    //   {id: 0, name: "1", value: "2"}
-    //   ];
+    debugger;
+    let params =[];
+    if(this.props.record && this.props.record.attributes){
+      params = JSON.parse(this.props.record.attributes);
+    }
     // console.log(params);
-    // this.setState(params);
-    // this._child.initParams(params);
-
     if (e) e.stopPropagation();
     this.setState({
       visible: true,
+      params:params
     });
   };
 
@@ -105,7 +105,7 @@ class AlgorithmModelEditModal extends Component {
               }
             </FormItem>
           </Form>
-          <ParamListWidget  handleChangeRecord={(params) => this.changeRecord(params)}/>
+          <ParamListWidget params={this.state.params}  handleChangeRecord={(params) => this.changeRecord(params)}/>
         </Modal>
       </span>
     );

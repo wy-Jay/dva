@@ -15,9 +15,16 @@ class AlgorithmInstanceEditModal extends Component {
   }
 
   showModelHandler = (e) => {
+    debugger;
+    let params =[];
+    if(this.props.record && this.props.record.attributes){
+      params = JSON.parse(this.props.record.attributes);
+    }
+    // console.log(params);
     if (e) e.stopPropagation();
     this.setState({
       visible: true,
+      params:params
     });
   };
 
@@ -115,6 +122,7 @@ class AlgorithmInstanceEditModal extends Component {
             >
               {
                 getFieldDecorator('classPath', {
+                  rules: [{ required: true, message: '请输入实例名!' }],
                   initialValue: classPath,
                 })(<Input />)
               }
@@ -123,13 +131,9 @@ class AlgorithmInstanceEditModal extends Component {
               {...formItemLayout}
               label="存储方式"
             >
-              {
-                getFieldDecorator('saveType', {
-                  initialValue: saveType,
-                })(<Select>
+              <Select defaultValue="1">
                   <Option value="1">OSS</Option>
-                </Select>)
-              }
+              </Select>
             </FormItem>
             <FormItem
               {...formItemLayout}
@@ -156,8 +160,8 @@ class AlgorithmInstanceEditModal extends Component {
                 })(<Input disabled="true" />)
               }
             </FormItem>
-            <ParamListWidget  handleChangeRecord={(params) => this.changeRecord(params)}/>
           </Form>
+          <ParamListWidget  params={this.state.params}  handleChangeRecord={(params) => this.changeRecord(params)}/>
         </Modal>
       </span>
     );

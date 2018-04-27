@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Button } from 'antd';
+import { Icon, Button,Input, Col} from 'antd';
+const InputGroup = Input.Group;
 
 function ParamWidget(props) {
   return (
     <div>
       <label>Name:
-				<input
-  name="param-name"
-  value={props.name}
-  onChange={e => props.onNameChange(e.target.value)}
-				/>
+        <input
+          name="param-name"
+          value={props.name}
+          onChange={e => props.onNameChange(e.target.value)}
+        />
       </label>
 
       <label>Value:
-				<input
-  name="param-value"
-  value={props.value}
-  onChange={e => props.onValueChange(e.target.value)}
-				/>
+        <input
+          name="param-value"
+          value={props.value}
+          onChange={e => props.onValueChange(e.target.value)}
+        />
       </label>
       <Icon
         className="dynamic-delete-button"
@@ -26,6 +27,7 @@ function ParamWidget(props) {
         onClick={props.onDelete}
       />
     </div>
+
   );
 }
 
@@ -41,7 +43,7 @@ export default class ParamListWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      params: [],
+      params: props.params,
     };
     this.counter = 0;
   }

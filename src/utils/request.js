@@ -65,7 +65,7 @@ function handleError(error) {
 }
 
 export default function request(url, options) {
-  if (url !== '/api/user/login' && url !== '/api/user/register' && url !== '/api/user/logOut') {
+  if (url !== '/api/user/login' && url !== '/api/user/register') {
     url = `${url}?token=${Cookie.get('token')}`;
   }
 

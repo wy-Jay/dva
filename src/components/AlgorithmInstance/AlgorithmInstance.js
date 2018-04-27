@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Table, Pagination, Popconfirm, Button } from 'antd';
+import { Table, Pagination, Popconfirm, Button ,Icon } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './AlgorithmInstance.css';
 import { PAGE_SIZE } from '../../constants';
@@ -35,6 +35,14 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
     });
   }
 
+  function redirectToHistoryHandler(moduleName,instanceName) {
+    const pathName = '/algorithmInstances';
+    dispatch(routerRedux.push({
+      pathname: pathName,
+      query: { moduleName,instanceName },
+    }));
+  }
+
   const columns = [
     {
       title: 'pkId',
@@ -45,6 +53,14 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
       title: '版本号',
       dataIndex: 'version',
       key: 'version',
+    },
+    {
+      title: '历史版本',
+      dataIndex: 'versionHistory',
+      key: 'versionHistory',
+      render: (text, record) => (
+        <a onClick={redirectToHistoryHandler.bind(this, record.moduleName,record.history)}>查看</a>
+      ),
     },
     {
       title: '算法模块名',

@@ -1,10 +1,16 @@
 import React from 'react';
-import { Menu, Icon } from 'antd';
-import { Link } from 'dva/router';
+import { Menu, Icon, message } from 'antd';
+import { Link} from 'dva/router';
 import styles from './Header.less'
 
 const SubMenu = Menu.SubMenu
-function Header({ location }) {
+function Header({ dispatch,location }) {
+  function doLogOut() {
+    // dispatch({
+    //   type: 'logOut/logOut',
+    //   payload: {},
+    // });
+  }
   return (
     <div>
       <Menu
@@ -19,7 +25,7 @@ function Header({ location }) {
           {/*<Menu className="header-menu" mode="horizontal" style={{ textAlign: 'center' }}>*/}
           {/*<SubMenu title={<span><Icon type="user" />aaa</span>}>*/}
           {/*<Menu.Item key="logout">*/}
-          <a>登出</a>
+          <a onClick={doLogOut()}>登出</a>
           {/*</Menu.Item>*/}
           {/*</SubMenu>*/}
           {/*</Menu>*/}
