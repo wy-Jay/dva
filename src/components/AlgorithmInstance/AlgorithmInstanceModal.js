@@ -18,6 +18,7 @@ class AlgorithmInstanceEditModal extends Component {
   showModelHandler = (e) => {
     // debugger;
     let params =[];
+    // console.log(this.props);
     if(this.props.record && this.props.record.attributes){
       params = JSON.parse(this.props.record.attributes);
     }
@@ -42,7 +43,7 @@ class AlgorithmInstanceEditModal extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         values.attributes = JSON.stringify(params);
-        console.log(values);
+        // console.log(values);
         onOk(values);
         this.hideModelHandler();
       }
@@ -51,9 +52,27 @@ class AlgorithmInstanceEditModal extends Component {
 
   changeRecord = (params) => {
     this.setState(params);
-    console.log(params,'---parents')
+    // console.log(params,'---parents')
   }
 
+  handleUploadChange = (info) => {
+    // console.log(info.file);
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully`);
+      if(info.file.response && info.file.response.data){
+        // debugger;
+        this.props.record.filePath = info.file.response.data;
+        this.props.form.setFieldsValue({
+          filePath: this.props.record.filePath
+        });
+      }
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  }
 
   render() {
     const { children } = this.props;
@@ -71,26 +90,10 @@ class AlgorithmInstanceEditModal extends Component {
       headers: {
         authorization: 'authorization-text',
       },
-      // onChange(info) {
-      //   console.log(info.file);
-      //   if (info.file.status !== 'uploading') {
-      //     console.log(info.file, info.fileList);
-      //   }
-      //   if (info.file.status === 'done') {
-      //     message.success(`${info.file.name} file uploaded successfully`);
-      //     if(info.file.response && info.file.response.data){
-      //       debugger;
-      //       this.props.record.filePath = info.file.response.data;
-      //     }
-      //   } else if (info.file.status === 'error') {
-      //     message.error(`${info.file.name} file upload failed.`);
-      //   }
-      // },
+      onChange:this.handleUploadChange,
     };
 
-    function onChangeTest() {
-        console.log(this.props);
-    }
+
     return (
       <span>
         <span onClick={this.showModelHandler}>
@@ -110,7 +113,7 @@ class AlgorithmInstanceEditModal extends Component {
               {
                 getFieldDecorator('pkId', {
                   initialValue: pkId,
-                })(<Input disabled="true" />)
+                })(<Input disabled={true} />)
               }
             </FormItem>
             <FormItem
@@ -142,7 +145,7 @@ class AlgorithmInstanceEditModal extends Component {
               {
                 getFieldDecorator('version', {
                   initialValue: version,
-                })(<Input disabled="true" />)
+                })(<Input disabled={true} />)
               }
             </FormItem>
             <FormItem
@@ -181,7 +184,7 @@ class AlgorithmInstanceEditModal extends Component {
               {
                 getFieldDecorator('filePath', {
                   initialValue: filePath,
-                })(<Input disabled="true" />)
+                })(<Input disabled={true} />)
               }
             </FormItem>
           </Form>

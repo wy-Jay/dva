@@ -52,10 +52,6 @@ export default class ParamListWidget extends React.Component {
     this.props.handleChangeRecord(params)
   }
 
-  initParams = (params) => {
-    this.setState(params);
-  }
-
   addParam = () => {
     const params = [...this.state.params];
     params.push({ id: this.counter, name: '', value: '' });

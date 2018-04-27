@@ -80,7 +80,7 @@ class AlgorithmModelEditModal extends Component {
               {
                 getFieldDecorator('pkId', {
                   initialValue: pkId,
-                })(<Input disabled="true" />)
+                })(<Input disabled={true} />)
               }
             </FormItem>
             <FormItem

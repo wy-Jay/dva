@@ -126,6 +126,8 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
 }
 
 function mapStateToProps(state) {
+  console.log(1111);
+  console.log(state);
   const { list, total, page } = state.algorithmInstances;
   return {
     loading: state.loading.models.algorithmInstances,
