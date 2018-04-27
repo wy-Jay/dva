@@ -2,6 +2,7 @@ import axios from 'axios';
 import { message } from 'antd';
 import { stringify } from 'qs';
 import Cookie from './cookie';
+import {setLoginOut} from "./index";
 
 // message 全局配置
 message.config({
@@ -37,6 +38,7 @@ function checkStatus(res) {
     return res;
   }
 
+  debugger;
   const error = new Error(res.statusText);
   error.response = res;
   throw error;
@@ -45,6 +47,13 @@ function checkStatus(res) {
 function handelData(res) {
   const data = res.data;
   debugger;
+  if(data && data.code === 1000){
+      setLoginOut();
+      replace({
+        pathname: '/login',
+      });
+  }
+
   if (data && data.msg && !data.success) {
     debugger;
     message.error(data.msg);

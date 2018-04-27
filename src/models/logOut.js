@@ -9,7 +9,7 @@ export default {
   reducers: {
   },
   effects: {
-    * logout ({}, { put }) {
+    * logOut ({}, { put }) {
       const data = yield call(logOut(), {})
       const returnData = data.data;
       if (returnData && returnData.success) {

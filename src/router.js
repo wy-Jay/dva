@@ -12,13 +12,13 @@ function registerModel(app, model) {
 
 
 function redirectToLogin(nextState, replace) {
-  // if (!isLogin()) {
-  //   replace({
-  //     pathname: '/login',
-  //   });
-  // }else {
-  //   replace('/algorithmModels');
-  // }
+  if (!isLogin()) {
+    replace({
+      pathname: '/login',
+    });
+  }else {
+    replace('/algorithmModels');
+  }
 }
 
 function redirectToModulePage(nextState, replace) {

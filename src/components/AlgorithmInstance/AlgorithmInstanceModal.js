@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Modal, Form, Input, Icon, Button, Upload, Select } from 'antd';
+import { Modal, Form, Input, Icon, Button, Upload, Select, message } from 'antd';
 import ParamListWidget from '../Common/ParamList';
+import Cookie from '../../utils/cookie';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -15,7 +16,7 @@ class AlgorithmInstanceEditModal extends Component {
   }
 
   showModelHandler = (e) => {
-    debugger;
+    // debugger;
     let params =[];
     if(this.props.record && this.props.record.attributes){
       params = JSON.parse(this.props.record.attributes);
@@ -62,6 +63,34 @@ class AlgorithmInstanceEditModal extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
     };
+
+    const uploadProps = {
+      name: 'file',
+      action: '/api/algorithm/moduleFile/upload?token='+Cookie.get('token'),
+      data: {moduleName, instanceName, saveType},
+      headers: {
+        authorization: 'authorization-text',
+      },
+      // onChange(info) {
+      //   console.log(info.file);
+      //   if (info.file.status !== 'uploading') {
+      //     console.log(info.file, info.fileList);
+      //   }
+      //   if (info.file.status === 'done') {
+      //     message.success(`${info.file.name} file uploaded successfully`);
+      //     if(info.file.response && info.file.response.data){
+      //       debugger;
+      //       this.props.record.filePath = info.file.response.data;
+      //     }
+      //   } else if (info.file.status === 'error') {
+      //     message.error(`${info.file.name} file upload failed.`);
+      //   }
+      // },
+    };
+
+    function onChangeTest() {
+        console.log(this.props);
+    }
     return (
       <span>
         <span onClick={this.showModelHandler}>
@@ -139,16 +168,11 @@ class AlgorithmInstanceEditModal extends Component {
               {...formItemLayout}
               label="模型文件"
             >
-              {getFieldDecorator('upload', {
-                valuePropName: 'fileList',
-                getValueFromEvent: this.normFile,
-              })(
-                <Upload name="logo" action="/upload.do" listType="picture">
+                <Upload {...uploadProps} >
                   <Button>
                     <Icon type="upload" /> 上传
                   </Button>
                 </Upload>
-              )}
             </FormItem>
             <FormItem
               {...formItemLayout}
