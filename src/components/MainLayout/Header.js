@@ -1,15 +1,17 @@
 import React from 'react';
+import { connect } from 'dva';
 import { Menu, Icon, message } from 'antd';
 import { Link} from 'dva/router';
 import styles from './Header.less'
 
 const SubMenu = Menu.SubMenu
 function Header({ dispatch,location }) {
+  console.log(dispatch,location)
   function doLogOut() {
-    // dispatch({
-    //   type: 'logOut/logOut',
-    //   payload: {},
-    // });
+    dispatch({
+      type: 'logOut/logOut',
+      payload: {},
+    });
   }
   return (
     <div>
@@ -35,4 +37,4 @@ function Header({ dispatch,location }) {
   );
 }
 
-export default Header;
+export default connect()(Header);
