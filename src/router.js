@@ -72,6 +72,16 @@ function RouterConfig({ history, app }) {
         });
       },
     },
+    {
+      path: '/algorithmInstanceHistorys',
+      name: 'HistoryPage',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          registerModel(app, require('./models/algorithmInstanceHistory'));
+          cb(null, require('./routes/AlgorithmInstanceHistory'));
+        });
+      },
+    },
   ];
 
   return <Router history={history} routes={routes} />;

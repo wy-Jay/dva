@@ -4,63 +4,37 @@ import { Table, Pagination, Popconfirm, Button ,Icon } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from '../Common/common.css';
 import { PAGE_SIZE } from '../../constants';
-import AlgorithmInstanceModal from './AlgorithmInstanceModal';
+import AlgorithmInstanceHistoryModal from './AlgorithmInstanceHistoryModal';
 
-function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total, page: current }) {
-  function deleteHandler(pkId) {
-    dispatch({
-      type: 'algorithmInstances/remove',
-      payload: pkId,
-    });
-  }
+function AlgorithmInstanceHistorys({ props, dispatch, list: dataSource, loading, total, page: current }) {
+
 
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
-      pathname: '/algorithmInstances',
+      pathname: '/algorithmInstanceHistorys',
       query: { page },
     }));
   }
 
   function editHandler(pkId, values) {
     dispatch({
-      type: 'algorithmInstances/patch',
+      type: 'algorithmInstanceHistorys/patch',
       payload: { pkId, values },
     });
   }
 
-  function createHandler(values) {
+  function rollBackHandler(pkId) {
     dispatch({
-      type: 'algorithmInstances/create',
-      payload: values,
+      type: 'algorithmInstanceHistorys/rollBack',
+      payload: pkId,
     });
-  }
-
-  function redirectToHistoryHandler(moduleName,instanceName) {
-    const pathName = '/algorithmInstanceHistorys';
-    dispatch(routerRedux.push({
-      pathname: pathName,
-      query: { moduleName,instanceName },
-    }));
   }
 
   const columns = [
     {
-      title: 'pkId',
-      dataIndex: 'pkId',
-      key: 'pkId',
-    },
-    {
       title: '版本号',
       dataIndex: 'version',
       key: 'version',
-    },
-    {
-      title: '历史版本',
-      dataIndex: 'versionHistory',
-      key: 'versionHistory',
-      render: (text, record) => (
-        <a onClick={redirectToHistoryHandler.bind(this, record.moduleName,record.instanceName)}>查看</a>
-      ),
     },
     {
       title: '算法模块名',
@@ -87,11 +61,11 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
       key: 'operation',
       render: (text, record) => (
         <span className={styles.operation}>
-          <AlgorithmInstanceModal record={record} onOk={editHandler.bind(null, record.pkId)}>
-            <a>编辑</a>
-          </AlgorithmInstanceModal>
-          <Popconfirm title="Confirm to delete?" placement="right" onConfirm={deleteHandler.bind(null, record.pkId)}>
-            <a href="">删除</a>
+          <AlgorithmInstanceHistoryModal record={record} onOk={editHandler.bind(null, record.pkId)}>
+            <a>查看</a>
+          </AlgorithmInstanceHistoryModal>
+          <Popconfirm title="确认回滚?" placement="right" onConfirm={rollBackHandler.bind(null, record.pkId)}>
+            <a href="">回滚</a>
           </Popconfirm>
         </span>
       ),
@@ -101,11 +75,6 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
   return (
     <div className={styles.normal}>
       <div>
-        <div className={styles.create}>
-          <AlgorithmInstanceModal record={{}} onOk={createHandler}>
-            <Button type="primary">新建实例</Button>
-          </AlgorithmInstanceModal>
-        </div>
         <Table
           columns={columns}
           dataSource={dataSource}
@@ -126,9 +95,9 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
 }
 
 function mapStateToProps(state) {
-  const { list, total, page } = state.algorithmInstances;
+  const { list, total, page } = state.algorithmInstanceHistorys;
   return {
-    loading: state.loading.models.algorithmInstances,
+    loading: state.loading.models.algorithmInstanceHistorys,
     list,
     total,
     page,
@@ -136,4 +105,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(AlgorithmInstances);
+export default connect(mapStateToProps)(AlgorithmInstanceHistorys);
