@@ -32,7 +32,8 @@ export function create(values) {
   });
 }
 
-export function rollBack(values) {
+export function rollBack(id) {
+  const values = { pkId: id };
   return request('api/algorithm/instance/history/rollBack', {
     method: 'POST',
     data: values,

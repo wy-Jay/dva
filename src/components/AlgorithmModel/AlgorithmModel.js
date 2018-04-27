@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Table, Pagination, Popconfirm, Button } from 'antd';
-import { routerRedux } from 'dva/router';
+import { routerRedux,browserHistory } from 'dva/router';
 import styles from '../Common/common.css';
 import { PAGE_SIZE } from '../../constants';
 import AlgorithmModelModal from './AlgorithmModelModal';

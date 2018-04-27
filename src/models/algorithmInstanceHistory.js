@@ -50,6 +50,7 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
+      debugger;
       return history.listen(({ pathname, query }) => {
         // debugger;
         // console.log(query);
