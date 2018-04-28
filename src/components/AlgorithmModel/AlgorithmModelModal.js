@@ -20,6 +20,7 @@ class AlgorithmModelEditModal extends Component {
       params = JSON.parse(this.props.record.attributes);
     }
     // console.log(params);
+    this.props.form.resetFields();
     if (e) e.stopPropagation();
     this.setState({
       visible: true,
@@ -30,6 +31,7 @@ class AlgorithmModelEditModal extends Component {
   hideModelHandler = () => {
     this.setState({
       visible: false,
+      params: [],
     });
   };
 

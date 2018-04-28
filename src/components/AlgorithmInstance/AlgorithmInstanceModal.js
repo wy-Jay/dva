@@ -25,13 +25,14 @@ class AlgorithmInstanceEditModal extends Component {
     this.props.form.resetFields();
     this.setState({
       visible: true,
-      params:params,
+      params:[],
     });
   };
 
   hideModelHandler = () => {
     this.setState({
       visible: false,
+      params: [],
     });
     // console.log(this.props.params);
   };

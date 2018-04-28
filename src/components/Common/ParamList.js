@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon, Button,Input, Col} from 'antd';
 
+let counter = 0;
 function ParamWidget(props) {
   return (
     <div>
@@ -40,13 +41,20 @@ ParamWidget.propTypes = {
 
 export default class ParamListWidget extends React.Component {
   constructor(props) {
-    console.log(props);
+    console.log(props)
     super(props);
     let params = props.params;
     this.state = {
       params: params,
     };
-    this.counter = 0;
+
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log("test");
+    console.log(nextProps);
+    this.setState({
+      params:nextProps.params,
+    });
   }
 
 
@@ -56,8 +64,8 @@ export default class ParamListWidget extends React.Component {
 
   addParam = () => {
     const params = [...this.state.params];
-    params.push({ id: this.counter, name: '', value: '' });
-    this.counter += 1;
+    params.push({ id: counter, name: '', value: '' });
+    counter += 1;
     this.setState({ params });
     this.handleChangeParams({ params });
   }
