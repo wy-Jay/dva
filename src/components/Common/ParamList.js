@@ -41,7 +41,6 @@ ParamWidget.propTypes = {
 
 export default class ParamListWidget extends React.Component {
   constructor(props) {
-    console.log(props)
     super(props);
     let params = props.params;
     this.state = {
@@ -50,8 +49,6 @@ export default class ParamListWidget extends React.Component {
 
   }
   componentWillReceiveProps(nextProps) {
-    console.log("test");
-    console.log(nextProps);
     this.setState({
       params:nextProps.params,
     });

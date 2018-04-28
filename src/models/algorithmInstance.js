@@ -45,7 +45,6 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        // console.log(query);
         if (pathname === '/algorithmInstances') {
           dispatch({ type: 'fetch', payload: query });
         }

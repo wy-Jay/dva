@@ -61,7 +61,7 @@ function handelData(res) {
 function handleError(error) {
   console.log("error");
   console.log(error);
-  debugger
+  // debugger
   const data = error.response.data;
   if (data.errors) {
     message.error(`${data.message}：${data.errors}`, 5);

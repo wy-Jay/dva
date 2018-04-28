@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import * as algorithmModelsService from '../services/algorithmModel';
 
 export default {
@@ -33,6 +34,12 @@ export default {
       yield put({ type: 'reload' });
     },
     *create({ payload: values }, { call, put }) {
+      const { data } = yield call(algorithmModelsService.checkModuleName, values);
+      if(data){
+        message.error("模块名重复");
+        return;
+      }
+
       yield call(algorithmModelsService.create, values);
       yield put({ type: 'reload' });
     },

@@ -14,7 +14,7 @@ class AlgorithmModelEditModal extends Component {
   }
 
   showModelHandler = (e) => {
-    debugger;
+    // debugger;
     let params =[];
     if(this.props.record && this.props.record.attributes){
       params = JSON.parse(this.props.record.attributes);
@@ -42,7 +42,8 @@ class AlgorithmModelEditModal extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         values.attributes = JSON.stringify(params);
-        console.log(values);
+        // console.log(values);
+
         onOk(values);
         this.hideModelHandler();
       }
@@ -51,7 +52,7 @@ class AlgorithmModelEditModal extends Component {
 
   changeRecord = (params) => {
     this.setState(params);
-    console.log(params,'---parents')
+    // console.log(params,'---parents')
   }
 
 
@@ -74,7 +75,7 @@ class AlgorithmModelEditModal extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
         >
-          <Form horizontal onSubmit={this.okHandler}>
+          <Form layout="horizontal" onSubmit={this.okHandler}>
             <FormItem
               {...formItemLayout}
               label="pkId"

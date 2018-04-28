@@ -19,7 +19,6 @@ export function remove(id) {
 }
 
 export function patch(id, values) {
-  const params = { pkId: id };
   return request('api/algorithm/module/edit', {
     method: 'POST',
     data: values,
@@ -28,6 +27,13 @@ export function patch(id, values) {
 
 export function create(values) {
   return request('api/algorithm/module/save', {
+    method: 'POST',
+    data: values,
+  });
+}
+
+export function checkModuleName(values) {
+  return request('api/algorithm/module/checkModuleName', {
     method: 'POST',
     data: values,
   });

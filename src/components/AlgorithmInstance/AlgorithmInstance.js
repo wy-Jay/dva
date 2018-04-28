@@ -29,6 +29,8 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
   }
 
   function createHandler(values) {
+    console.log(values);
+    console.log(this.state);
     dispatch({
       type: 'algorithmInstances/create',
       payload: values,
@@ -45,19 +47,6 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
 
   const columns = [
     {
-      title: '版本号',
-      dataIndex: 'version',
-      key: 'version',
-    },
-    {
-      title: '历史版本',
-      dataIndex: 'versionHistory',
-      key: 'versionHistory',
-      render: (text, record) => (
-        <a onClick={redirectToHistoryHandler.bind(this, record.moduleName,record.instanceName)}>查看</a>
-      ),
-    },
-    {
       title: '算法模块名',
       dataIndex: 'moduleName',
       key: 'moduleName',
@@ -71,6 +60,19 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
       title: '类路径',
       dataIndex: 'classPath',
       key: 'classPath',
+    },
+    {
+      title: '版本号',
+      dataIndex: 'version',
+      key: 'version',
+    },
+    {
+      title: '历史版本',
+      dataIndex: 'versionHistory',
+      key: 'versionHistory',
+      render: (text, record) => (
+        <a onClick={redirectToHistoryHandler.bind(this, record.moduleName,record.instanceName)}>查看</a>
+      ),
     },
     {
       title: '创建时间',
@@ -126,6 +128,7 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
 }
 
 function mapStateToProps(state) {
+  debugger;
   const { list, total, page } = state.algorithmInstances;
   return {
     loading: state.loading.models.algorithmInstances,

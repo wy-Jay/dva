@@ -46,11 +46,6 @@ function AlgorithmModels({ dispatch, list: dataSource, loading, total, page: cur
   }
   const columns = [
     {
-      title: 'pkId',
-      dataIndex: 'pkId',
-      key: 'pkId',
-    },
-    {
       title: '算法模块名',
       dataIndex: 'moduleName',
       key: 'moduleName',
