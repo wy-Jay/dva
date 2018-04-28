@@ -18,7 +18,7 @@ class AlgorithmInstanceEditModal extends Component {
   showModelHandler = (e) => {
     // debugger;
     let params =[];
-    // console.log(this.props);
+    console.log(this.props);
     if(this.props.record && this.props.record.attributes){
       params = JSON.parse(this.props.record.attributes);
     }
@@ -164,7 +164,7 @@ class AlgorithmInstanceEditModal extends Component {
               label="存储方式"
             >
               <Select defaultValue="1">
-                  <Option value="1">OSS</Option>
+                  <Option value="OSS">OSS</Option>
               </Select>
             </FormItem>
             <FormItem

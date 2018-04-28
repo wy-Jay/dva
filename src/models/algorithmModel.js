@@ -15,11 +15,12 @@ export default {
   effects: {
     *fetch({ payload: { page = 1 } }, { call, put }) {
       const { data } = yield call(algorithmModelsService.fetch, { page });
+      debugger;
       yield put({
         type: 'save',
         payload: {
-          data: data.data.rows.rows,
-          total: data.data.rows.records,
+          data: data.rows.rows,
+          total: data.rows.records,
           page: parseInt(page, 10),
         },
       });
@@ -43,7 +44,6 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      // dispatch({ type: 'fetch', payload: {} });
       return history.listen(({ pathname, query }) => {
         if (pathname === '/algorithmModels') {
           dispatch({ type: 'fetch', payload: query });

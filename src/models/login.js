@@ -13,10 +13,9 @@ export default {
     }, { call, put, select }) {
       const params = { username: payload.username, password: payload.password };
       const data = yield call(login, params);
-      const returnData = data.data;
       debugger
-      if (returnData && returnData.success) {
-        setLoginIn(payload.username, returnData.data.token);
+      if (data && data.success) {
+        setLoginIn(payload.username, data.data.token);
         const nextPathname = '/algorithmModels';
         yield put(routerRedux.push({
           pathname: nextPathname,

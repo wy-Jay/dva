@@ -20,6 +20,9 @@ app.use(createLoading());
 
 // 3. Model
 // Moved to router.js
+app.model(require('./models/algorithmModel'));
+app.model(require('./models/algorithmInstance'));
+app.model(require('./models/algorithmInstanceHistory'));
 
 // 4. Router
 app.router(require('./router'));

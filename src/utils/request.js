@@ -47,21 +47,24 @@ function checkStatus(res) {
 function handelData(res) {
   const data = res.data;
   debugger;
-  if(data && data.code === 1000){
-      setLoginOut();
-      replace({
-        pathname: '/login',
-      });
-  }
+  // if(data && data.code === 1000){
+  //     setLoginOut();
+  //     replace({
+  //       pathname: '/login',
+  //     });
+  // }
 
   if (data && data.msg && !data.success) {
     debugger;
     message.error(data.msg);
   }
-  return { ...data.data, success: data.success || data.msg === 'Success' };
+  return { ...data, success: data.success};
 }
 
 function handleError(error) {
+  console.log("error");
+  console.log(error);
+  debugger
   const data = error.response.data;
   if (data.errors) {
     message.error(`${data.message}：${data.errors}`, 5);
@@ -80,8 +83,8 @@ export default function request(url, options) {
 
   return fetch(url, options)
     .then(checkStatus)
-    // .then(handelData)
-    // .catch(handleError);
+    .then(handelData)
+    .catch(handleError);
 }
 
 export function get(url, options) {

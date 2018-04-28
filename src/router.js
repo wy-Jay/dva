@@ -3,10 +3,9 @@ import { Router } from 'dva/router';
 import { isLogin } from './utils/index';
 
 const cached = {};
-function registerModel(app, model) {
-  if (!cached[model.namespace]) {
-    app.model(model);
-    cached[model.namespace] = 1;
+const registerModel = (app, model) => {
+  if (!(app._models.filter(m => m.namespace === model.namespace).length === 1)) {
+    app.model(model)
   }
 }
 
@@ -55,30 +54,33 @@ function RouterConfig({ history, app }) {
     {
       path: '/algorithmModels',
       name: 'ModulePage',
+      // onEnter: redirectToLogin,
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           registerModel(app, require('./models/algorithmModel'));
-          cb(null, require('./routes/AlgorithmModel'));
+          cb(null, require('./routes/AlgorithmModel'),"module");
         });
       },
     },
     {
       path: '/algorithmInstances',
       name: 'InstancePage',
+      // onEnter: redirectToLogin,
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           registerModel(app, require('./models/algorithmInstance'));
-          cb(null, require('./routes/AlgorithmInstance'));
+          cb(null, require('./routes/AlgorithmInstance'),"instance");
         });
       },
     },
     {
       path: '/algorithmInstanceHistorys',
       name: 'HistoryPage',
+      // onEnter: redirectToLogin,
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           registerModel(app, require('./models/algorithmInstanceHistory'));
-          cb(null, require('./routes/AlgorithmInstanceHistory'));
+          cb(null, require('./routes/AlgorithmInstanceHistory'),"history");
         });
       },
     },

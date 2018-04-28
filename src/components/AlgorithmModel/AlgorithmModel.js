@@ -38,6 +38,7 @@ function AlgorithmModels({ dispatch, list: dataSource, loading, total, page: cur
 
   function redirectHandler(moduleName) {
     const pathName = '/algorithmInstances';
+
     dispatch(routerRedux.push({
       pathname: pathName,
       query: { moduleName },
@@ -111,6 +112,7 @@ function AlgorithmModels({ dispatch, list: dataSource, loading, total, page: cur
 }
 
 function mapStateToProps(state) {
+  // debugger;
   const { list, total, page } = state.algorithmModels;
   return {
     loading: state.loading.models.algorithmModels,

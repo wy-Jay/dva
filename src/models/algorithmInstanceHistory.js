@@ -21,8 +21,8 @@ export default {
       yield put({
         type: 'save',
         payload: {
-          data: data.data.rows.rows,
-          total: data.data.rows.records,
+          data: data.rows.rows,
+          total: data.rows.records,
           page: parseInt(page, 10),
         },
       });
@@ -50,10 +50,7 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      debugger;
       return history.listen(({ pathname, query }) => {
-        // debugger;
-        // console.log(query);
         if (pathname === '/algorithmInstanceHistorys') {
           dispatch({ type: 'fetch', payload: query });
         }
