@@ -15,7 +15,6 @@ export default {
   effects: {
     *fetch({ payload: { page = 1 } }, { call, put }) {
       const { data } = yield call(algorithmModelsService.fetch, { page });
-      debugger;
       yield put({
         type: 'save',
         payload: {

@@ -6,7 +6,7 @@ export default {
     list: [],
     total: null,
     page: null,
-    moduleName: null,
+    moduleName: null
   },
   reducers: {
     save(state, { payload: { data: list, total, page, moduleName } }) {
@@ -15,10 +15,7 @@ export default {
   },
   effects: {
     *fetch({ payload: { page = 1, moduleName } }, { call, put }) {
-      // debugger;
-      // console.log(moduleName);
       const { data } = yield call(algorithmInstancesService.fetch, { page, moduleName });
-      debugger;
       yield put({
         type: 'save',
         payload: {
@@ -48,7 +45,7 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        console.log(query);
+        // console.log(query);
         if (pathname === '/algorithmInstances') {
           dispatch({ type: 'fetch', payload: query });
         }

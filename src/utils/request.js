@@ -37,8 +37,6 @@ function checkStatus(res) {
   if (res.status >= 200 && res.status < 300) {
     return res;
   }
-
-  debugger;
   const error = new Error(res.statusText);
   error.response = res;
   throw error;
@@ -46,7 +44,6 @@ function checkStatus(res) {
 
 function handelData(res) {
   const data = res.data;
-  debugger;
   // if(data && data.code === 1000){
   //     setLoginOut();
   //     replace({

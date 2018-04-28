@@ -11,22 +11,21 @@ class AlgorithmInstanceEditModal extends Component {
     super(props);
     this.state = {
       visible: false,
-      params: [],
+      params: []
     };
   }
 
   showModelHandler = (e) => {
     // debugger;
     let params =[];
-    console.log(this.props);
     if(this.props.record && this.props.record.attributes){
       params = JSON.parse(this.props.record.attributes);
     }
-    // console.log(params);
     if (e) e.stopPropagation();
+    this.props.form.resetFields();
     this.setState({
       visible: true,
-      params:params
+      params:params,
     });
   };
 
@@ -34,6 +33,7 @@ class AlgorithmInstanceEditModal extends Component {
     this.setState({
       visible: false,
     });
+    // console.log(this.props.params);
   };
 
   okHandler = () => {
@@ -43,7 +43,6 @@ class AlgorithmInstanceEditModal extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         values.attributes = JSON.stringify(params);
-        // console.log(values);
         onOk(values);
         this.hideModelHandler();
       }
@@ -53,7 +52,7 @@ class AlgorithmInstanceEditModal extends Component {
   changeRecord = (params) => {
     this.setState(params);
     // console.log(params,'---parents')
-  }
+  };
 
   handleUploadChange = (info) => {
     // console.log(info.file);
@@ -72,7 +71,7 @@ class AlgorithmInstanceEditModal extends Component {
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
     }
-  }
+  };
 
   render() {
     const { children } = this.props;
@@ -163,9 +162,13 @@ class AlgorithmInstanceEditModal extends Component {
               {...formItemLayout}
               label="存储方式"
             >
-              <Select defaultValue="1">
+              {
+                getFieldDecorator('saveType', {
+                  initialValue: saveType,
+                })(<Select>
                   <Option value="OSS">OSS</Option>
-              </Select>
+                </Select>)
+              }
             </FormItem>
             <FormItem
               {...formItemLayout}

@@ -15,8 +15,6 @@ export default {
   },
   effects: {
     *fetch({ payload: { page = 1, moduleName, instanceName } }, { call, put }) {
-      // debugger;
-      // console.log(moduleName);
       const { data } = yield call(algorithmInstanceHistorysService.fetch, { page, moduleName,instanceName });
       yield put({
         type: 'save',

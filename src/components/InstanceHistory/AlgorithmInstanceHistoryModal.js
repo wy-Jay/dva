@@ -119,8 +119,8 @@ class AlgorithmInstanceHistoryEditModal extends Component {
               {...formItemLayout}
               label="存储方式"
             >
-              <Select defaultValue="1">
-                  <Option value="1">OSS</Option>
+              <Select defaultValue="OSS">
+                  <Option value="OSS">OSS</Option>
               </Select>
             </FormItem>
             <FormItem

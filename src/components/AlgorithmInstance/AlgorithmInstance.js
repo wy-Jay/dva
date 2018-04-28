@@ -45,11 +45,6 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
 
   const columns = [
     {
-      title: 'pkId',
-      dataIndex: 'pkId',
-      key: 'pkId',
-    },
-    {
       title: '版本号',
       dataIndex: 'version',
       key: 'version',
@@ -81,6 +76,11 @@ function AlgorithmInstances({ props, dispatch, list: dataSource, loading, total,
       title: '创建时间',
       dataIndex: 'createdAt',
       key: 'createdAt',
+    },
+    {
+      title: '创建人',
+      dataIndex: 'createUser',
+      key: 'createUser',
     },
     {
       title: '操作',

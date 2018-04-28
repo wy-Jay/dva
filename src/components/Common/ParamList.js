@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon, Button,Input, Col} from 'antd';
-const InputGroup = Input.Group;
 
 function ParamWidget(props) {
   return (
@@ -41,12 +40,15 @@ ParamWidget.propTypes = {
 
 export default class ParamListWidget extends React.Component {
   constructor(props) {
+    console.log(props);
     super(props);
+    let params = props.params;
     this.state = {
-      params: props.params,
+      params: params,
     };
     this.counter = 0;
   }
+
 
   handleChangeParams = (params) => {
     this.props.handleChangeRecord(params)
