@@ -29,10 +29,10 @@ function AlgorithmModels({ dispatch, list: dataSource, loading, total, page: cur
     });
   }
 
-  function createHandler(values) {
+  function createHandler(values,cb) {
     dispatch({
       type: 'algorithmModels/create',
-      payload: values,
+      payload: {values, cb},
     });
   }
 

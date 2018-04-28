@@ -43,9 +43,10 @@ class AlgorithmModelEditModal extends Component {
       if (!err) {
         values.attributes = JSON.stringify(params);
         // console.log(values);
-
-        onOk(values);
-        this.hideModelHandler();
+        const cb = () => {
+          this.hideModelHandler();
+        }
+        onOk(values, cb);
       }
     });
   };

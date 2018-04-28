@@ -33,13 +33,15 @@ export default {
       yield call(algorithmModelsService.patch, id, values);
       yield put({ type: 'reload' });
     },
-    *create({ payload: values }, { call, put }) {
+    *create({ payload: {values,cb} }, { call, put }) {
       const { data } = yield call(algorithmModelsService.checkModuleName, values);
       if(data){
         message.error("模块名重复");
         return;
+      }else {
+        cb()
+        console.log(111111,cb)
       }
-
       yield call(algorithmModelsService.create, values);
       yield put({ type: 'reload' });
     },
