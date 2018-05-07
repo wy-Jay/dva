@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Modal, Form, Input, Icon, Button, Upload, Select, message } from 'antd';
 import ParamListWidget from '../Common/ParamList';
 import Cookie from '../../utils/cookie';
+import styles from './index.less';
+
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -103,11 +105,13 @@ class AlgorithmInstanceEditModal extends Component {
           visible={this.state.visible}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
+          width={1000}
         >
-          <Form layout="horizontal" onSubmit={this.okHandler}>
+          <Form  layout="inline"  onSubmit={this.okHandler}>
             <FormItem
               {...formItemLayout}
               label="pkId"
+              className={styles.flex2From}
             >
               {
                 getFieldDecorator('pkId', {
@@ -118,6 +122,7 @@ class AlgorithmInstanceEditModal extends Component {
             <FormItem
               {...formItemLayout}
               label="模块名"
+              className={styles.flex2From}
             >
               {
                 getFieldDecorator('moduleName', {
@@ -129,6 +134,7 @@ class AlgorithmInstanceEditModal extends Component {
             <FormItem
               {...formItemLayout}
               label="实例名"
+              className={styles.flex2From}
             >
               {
                 getFieldDecorator('instanceName', {
@@ -140,6 +146,7 @@ class AlgorithmInstanceEditModal extends Component {
             <FormItem
               {...formItemLayout}
               label="版本号"
+              className={styles.flex2From}
             >
               {
                 getFieldDecorator('version', {
@@ -150,6 +157,7 @@ class AlgorithmInstanceEditModal extends Component {
             <FormItem
               {...formItemLayout}
               label="classPath"
+              className={styles.flex2From}
             >
               {
                 getFieldDecorator('classPath', {
@@ -161,6 +169,7 @@ class AlgorithmInstanceEditModal extends Component {
             <FormItem
               {...formItemLayout}
               label="存储方式"
+              className={styles.flex2From}
             >
               {
                 getFieldDecorator('saveType', {
@@ -173,6 +182,7 @@ class AlgorithmInstanceEditModal extends Component {
             <FormItem
               {...formItemLayout}
               label="模型文件"
+              className={styles.flex2From}
             >
                 <Upload {...uploadProps} >
                   <Button>
@@ -183,6 +193,7 @@ class AlgorithmInstanceEditModal extends Component {
             <FormItem
               {...formItemLayout}
               label="文件路径"
+              className={styles.flex2From}
             >
               {
                 getFieldDecorator('filePath', {

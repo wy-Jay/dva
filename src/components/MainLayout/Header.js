@@ -15,7 +15,7 @@ function Header({ dispatch,location }) {
     });
   }
   return (
-    <div>
+    <div className={styles.header}>
       <Menu
         selectedKeys={[location.pathname]}
         mode="horizontal"
@@ -26,6 +26,9 @@ function Header({ dispatch,location }) {
         </Menu.Item>
         <Menu.Item key="/algorithmInstanceHistorys">
           <Link to="/algorithmInstanceHistorys"><Icon type="home" />算法平台</Link>
+        </Menu.Item>
+        <Menu.Item key="/algorithmInstances">
+          <Link to="/algorithmInstances"><Icon type="home" />算法实例</Link>
         </Menu.Item>
       </Menu>
       <div className={styles.right}>
